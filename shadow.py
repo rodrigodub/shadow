@@ -5,7 +5,7 @@
 # Python application to create an HTML file
 # from all files in a directory
 #
-# v0.1.03
+# v0.1.04
 # for Issue #5
 #
 # Rodrigo Nobrega
@@ -49,6 +49,12 @@ class ShProcess(object):
         f.write('        <h1>')
         f.write('        {}'.format(self.title))
         f.write('        </h1>')
+        f.write('        </br>')
+        for i in self.contents:
+            if '.html' not in i:
+                f.write('        <p><img src="{}" width="800px"/></br>'.format(i))
+                f.write('        <small>{}</small></p>'.format(i))
+                f.write('        </br>')
         f.write('    </body>')
         f.write('</html>')
         f.close()
