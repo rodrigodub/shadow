@@ -5,8 +5,8 @@
 # Python application to create an HTML file
 # from all files in a directory
 #
-# v0.1.02
-# for Issue #3
+# v0.1.03
+# for Issue #5
 #
 # Rodrigo Nobrega
 # 20170821-
@@ -22,13 +22,36 @@ import os
 class ShProcess(object):
     """
     Class to process the directory contents
+    Usage:
+        f = ShProcess(dir, title)
+    where
+        dir: directory, as string
+        title: HTML <title> and file name, as string
     """
-    def __init__(self, dir):
-        self.directory = dir
+    def __init__(self, direct, titulo):
+        self.directory = direct
+        self.title = titulo
         self.contents = os.listdir(self.directory)
+        self.output()
 
     def __str__(self):
         return 'This is an object to write the contents of [{}] as an HTML file.'.format(self.directory)
+
+    def output(self):
+        f = open('{}/{}.html'.format(self.directory, self.title), 'w')
+        f.write('<html>')
+        f.write('    <head>')
+        f.write('        <title>')
+        f.write('        {}'.format(self.title))
+        f.write('        </title>')
+        f.write('    </head>')
+        f.write('    <body>')
+        f.write('        <h1>')
+        f.write('        {}'.format(self.title))
+        f.write('        </h1>')
+        f.write('    </body>')
+        f.write('</html>')
+        f.close()
 
 
 # test loop
@@ -37,10 +60,12 @@ def test():
     print('Test.')
     print('------------------------')
     d = input('Enter directory: ')
-    a = ShProcess(d)
-    print(a)
-    print('Contents:\n')
-    [print(i) for i in a.contents]
+    t = input('Enter the file title: ')
+    a = ShProcess(d, t)
+    # print(a)
+    # print('Contents:\n')
+    # [print(i) for i in a.contents]
+    print('Done.')
 
 
 # main loop
