@@ -5,8 +5,8 @@
 # Python application to create an HTML file
 # from all files in a directory
 #
-# v0.1.04
-# for Issue #5
+# v0.1.05
+# for Issue #2
 #
 # Rodrigo Nobrega
 # 20170821-
@@ -16,6 +16,7 @@ __author__ = 'Rodrigo Nobrega'
 
 # import modules
 import os
+import shutil
 
 
 # ShProcess()
@@ -33,6 +34,7 @@ class ShProcess(object):
         self.title = titulo
         self.contents = os.listdir(self.directory)
         self.output()
+        shutil.copy('style.css', '{}/style.css'.format(self.directory))
 
     def __str__(self):
         return 'This is an object to write the contents of [{}] as an HTML file.'.format(self.directory)
@@ -41,6 +43,8 @@ class ShProcess(object):
         f = open('{}/{}.html'.format(self.directory, self.title), 'w')
         f.write('<html>')
         f.write('    <head>')
+        f.write('        <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">')
+        f.write('        <link rel="stylesheet" href="style.css" type="text/css">')
         f.write('        <title>')
         f.write('        {}'.format(self.title))
         f.write('        </title>')
@@ -52,9 +56,10 @@ class ShProcess(object):
         f.write('        </br>')
         for i in self.contents:
             if '.html' not in i:
-                f.write('        <p><img src="{}" width="800px"/></br>'.format(i))
-                f.write('        <small>{}</small></p>'.format(i))
-                f.write('        </br>')
+                if '.css' not in i:
+                    f.write('        <p><img src="{}" width="800px"/></br>'.format(i))
+                    f.write('        <small>{}</small></p>'.format(i))
+                    f.write('        </br>')
         f.write('    </body>')
         f.write('</html>')
         f.close()
