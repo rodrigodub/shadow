@@ -5,13 +5,13 @@
 # Python application to create an HTML file
 # from all files in a directory
 #
-# v0.1.05
-# for Issue #2
+# for Issue #
 #
 # Rodrigo Nobrega
-# 20170821-
+# 20170821-20171116
 #################################################
 __author__ = 'Rodrigo Nobrega'
+__version__ = '1.08'
 
 
 # import modules
@@ -35,6 +35,7 @@ class ShProcess(object):
         self.contents = os.listdir(self.directory)
         self.output()
         shutil.copy('style.css', '{}/style.css'.format(self.directory))
+        # os.system('start {}/{}.html'.format(self.directory, self.title))
 
     def __str__(self):
         return 'This is an object to write the contents of [{}] as an HTML file.'.format(self.directory)
@@ -81,12 +82,17 @@ def test():
 
 # main loop
 def main():
-    print('------------------------')
-    print('Main.')
-    print('------------------------')
+    print('\n=========================================')
+    print('            Create HTML file')
+    print('                  v{}'.format(__version__))
+    print('=========================================')
+    d = input(' Enter directory: ')
+    t = input(' Enter the file title: ')
+    a = ShProcess(d, t)
+    print('Done.')
 
 
 # main, calling main loop
 if __name__ == '__main__':
-    test()
-    # main()
+    # test()
+    main()
